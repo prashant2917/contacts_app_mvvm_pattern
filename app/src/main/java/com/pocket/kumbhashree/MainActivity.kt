@@ -1,8 +1,7 @@
-package com.pocket.kumbhashree.main
+package com.pocket.kumbhashree
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.pocket.kumbhashree.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
