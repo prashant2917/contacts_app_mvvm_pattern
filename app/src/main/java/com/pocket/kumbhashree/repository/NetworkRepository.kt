@@ -1,6 +1,8 @@
 package com.pocket.kumbhashree.repository
 
+import android.util.Log
 import com.pocket.kumbhashree.model.Contact
+import com.pocket.kumbhashree.model.ContactModel
 import com.pocket.kumbhashree.network.ApiInterface
 import com.pocket.kumbhashree.network.RetrofitBuilder
 import retrofit2.Call
@@ -9,27 +11,33 @@ import retrofit2.Response
 
 class NetworkRepository : Repository() {
     private val request = RetrofitBuilder.buildService(ApiInterface::class.java)
-    override fun fetchContacts(): List<Contact> {
-        var list = listOf<Contact>()
+    override fun fetchContacts():ContactModel{
+         var  contactModel  = ContactModel()
         val call = request.getContacts()
 
 
-        call.enqueue(object : Callback<List<Contact>> {
-            override fun onResponse(call: Call<List<Contact>>, response: Response<List<Contact>>) {
+        call.enqueue(object : Callback<ContactModel> {
+            override fun onResponse(call: Call<ContactModel>, response: Response<ContactModel>) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        list = it.toList()
+                        contactModel= ContactModel()
+                        contactModel.status = it.status
+                        contactModel.count = it.count
+                        contactModel.contactList = it.contactList
+                        Log.d("###","contact model is "+contactModel.status + contactModel.contactList.size)
                     }
 
                 } else {
-                    list = emptyList()
+
+                    Log.d("###","list empty")
                 }
             }
 
-            override fun onFailure(call: Call<List<Contact>>, t: Throwable) {
-                list = emptyList()
+            override fun onFailure(call: Call<ContactModel>, t: Throwable) {
+
+                Log.d("###","list empty failure"+t.message)
             }
         })
-        return list
+      return contactModel
     }
 }
