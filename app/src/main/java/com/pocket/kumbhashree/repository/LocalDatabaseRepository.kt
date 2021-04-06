@@ -1,10 +1,10 @@
 package com.pocket.kumbhashree.repository
 
-import com.pocket.kumbhashree.model.Contact
+import androidx.lifecycle.MutableLiveData
 import com.pocket.kumbhashree.model.ContactModel
 
 class LocalDatabaseRepository : Repository() {
-    override fun fetchContacts(): ContactModel {
+    override fun fetchContacts(): MutableLiveData<ContactModel?> {
         TODO("Not yet implemented")
     }
 }
