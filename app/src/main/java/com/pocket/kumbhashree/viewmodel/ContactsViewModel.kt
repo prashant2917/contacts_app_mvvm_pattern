@@ -14,8 +14,6 @@ class ContactsViewModel : ViewModel() {
 
         val repository = getRepository()
         mutableLiveDataContactsModel = repository.fetchContacts()
-
-
         return mutableLiveDataContactsModel
     }
 
