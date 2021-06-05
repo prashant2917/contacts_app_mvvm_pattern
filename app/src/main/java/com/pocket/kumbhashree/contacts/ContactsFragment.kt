@@ -24,7 +24,6 @@ class ContactsFragment : Fragment() {
 
         _binding = FragmentContactsBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +44,6 @@ class ContactsFragment : Fragment() {
     }
 
     private fun getContacts() {
-
         contactsViewModel.fetchContacts().observe(this, {
             it?.contactList?.let { contactList ->
                 if (contactList.isEmpty()) {
@@ -55,14 +53,13 @@ class ContactsFragment : Fragment() {
                 }
             }
 
-
         })
-
 
     }
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
-
+        getContacts()
+        binding.swipeRefreshLayout.isRefreshing=false
 
     }
 }
