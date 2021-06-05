@@ -2,18 +2,27 @@ package com.pocket.kumbhashree.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.pocket.kumbhashree.model.ContactModel
-import com.pocket.kumbhashree.repository.LocalDatabaseRepository
 import com.pocket.kumbhashree.repository.NetworkRepository
-import com.pocket.kumbhashree.repository.Repository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ContactsViewModel : ViewModel() {
     private var mutableLiveDataContactsModel = MutableLiveData<ContactModel?>()
     private val liveDataIsOffline = MutableLiveData<Boolean>()
     fun fetchContacts(): MutableLiveData<ContactModel?> {
 
-        val repository = getRepository()
-        mutableLiveDataContactsModel = repository.fetchContacts()
+        viewModelScope.launch(Dispatchers.Main) {
+            val response = NetworkRepository.fetchContacts()
+            if (response.isSuccessful) {
+                response.body().let {
+                    mutableLiveDataContactsModel.value = it
+                }
+
+            }
+        }
+
         return mutableLiveDataContactsModel
     }
 
@@ -25,11 +34,5 @@ class ContactsViewModel : ViewModel() {
         return liveDataIsOffline.value
     }
 
-    private fun getRepository(): Repository {
-        return if (getIsOffline() == true) {
-            LocalDatabaseRepository()
-        } else {
-            NetworkRepository()
-        }
-    }
+
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.pocket.kumbhashree.adapter.ContactsAdapter
 import com.pocket.kumbhashree.databinding.FragmentContactsBinding
 import com.pocket.kumbhashree.viewmodel.ContactsViewModel
 
@@ -14,6 +15,7 @@ class ContactsFragment : Fragment() {
     private var _binding: FragmentContactsBinding? = null
     private val binding get() = _binding!!
     private lateinit var contactsViewModel: ContactsViewModel
+    private lateinit var contactsAdapter: ContactsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,11 +48,23 @@ class ContactsFragment : Fragment() {
     private fun getContacts() {
 
         contactsViewModel.fetchContacts().observe(this, {
+            it?.contactList?.let { contactList ->
+                if (contactList.isEmpty()) {
+                    binding.recyclerContacts.visibility = View.GONE
+                } else {
+                    binding.recyclerContacts.adapter = ContactsAdapter(contactList)
+                }
+            }
 
 
         })
+
+
     }
 
-    private val refreshListener = SwipeRefreshLayout.OnRefreshListener { }
+    private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
+
+
+    }
 }
 

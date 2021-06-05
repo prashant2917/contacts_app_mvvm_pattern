@@ -2,14 +2,16 @@ package com.pocket.kumbhashree.model
 
 import com.google.gson.annotations.SerializedName
 
-class ContactModel()
-{
+class ContactModel {
     @SerializedName("status")
-    var status:String?=null
+    var status: String? = null
+
     @SerializedName("count")
-    var count: Int=0
+    var count: Int = 0
+
     @SerializedName("contacts")
-    var contactList:List<Contact> = emptyList()
+    var contactList: List<Contact> = emptyList()
+
 }
 
 class Contact(
@@ -27,6 +29,6 @@ class Contact(
     val mobileNo1: String? = null,
     @SerializedName("mobile_no_2")
     val mobileNo2: String? = null,
-    @SerializedName("profile_image_url")
+    @SerializedName("profile_image")
     val profileImageUrl: String? = null,
 )
