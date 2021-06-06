@@ -14,8 +14,7 @@ import com.pocket.contacts.databinding.FragmentContactsBinding
 import com.pocket.contacts.viewmodel.ContactsViewModel
 
 class ContactsFragment : Fragment() {
-    private var _binding: FragmentContactsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentContactsBinding
     private lateinit var contactsViewModel: ContactsViewModel
 
     override fun onCreateView(
@@ -24,7 +23,7 @@ class ContactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentContactsBinding.inflate(inflater, container, false)
+        binding = FragmentContactsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,19 +44,20 @@ class ContactsFragment : Fragment() {
         binding.fabAdd.setOnClickListener(fabClickListener)
     }
 
-    private val fabClickListener = View.OnClickListener { findNavController().navigate(R.id.go_to_add_contact) }
+    private val fabClickListener =
+        View.OnClickListener { findNavController().navigate(R.id.go_to_add_contact) }
 
     private fun getContacts() {
         contactsViewModel.fetchContacts().observe(this, {
-        if(it?.status=="ok" && it.count >0) {
-            it.contactList.let { contactList ->
-                if (contactList.isEmpty()) {
-                    binding.recyclerContacts.visibility = View.GONE
-                } else {
-                    binding.recyclerContacts.adapter = ContactsAdapter(contactList)
+            if (it?.status == "ok" && it.count > 0) {
+                it.contactList.let { contactList ->
+                    if (contactList.isEmpty()) {
+                        binding.recyclerContacts.visibility = View.GONE
+                    } else {
+                        binding.recyclerContacts.adapter = ContactsAdapter(contactList)
+                    }
                 }
             }
-        }
 
         })
 
@@ -65,7 +65,7 @@ class ContactsFragment : Fragment() {
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         getContacts()
-        binding.swipeRefreshLayout.isRefreshing=false
+        binding.swipeRefreshLayout.isRefreshing = false
 
     }
 }
