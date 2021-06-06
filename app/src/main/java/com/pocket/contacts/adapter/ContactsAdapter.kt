@@ -1,11 +1,11 @@
-package com.pocket.kumbhashree.adapter
+package com.pocket.contacts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.pocket.kumbhashree.databinding.RowContactsBinding
-import com.pocket.kumbhashree.model.Contact
+import com.pocket.contacts.databinding.RowContactsBinding
+import com.pocket.contacts.model.Contact
 
 
 class ContactsAdapter(private var contactList: List<Contact>) :
@@ -25,9 +25,9 @@ class ContactsAdapter(private var contactList: List<Contact>) :
             this.binding.tvMobile.text = "${contactList[position].mobileNo1}"
             this.binding.tvAddress.text = "${contactList[position].address}"
             val imageUrl = contactList[position].profileImageUrl.toString()
-            if (imageUrl?.isNotEmpty()) {
+            if (imageUrl.isNotEmpty()) {
                 Glide.with(binding.root.context).load(PROFILE_PIC_URL + imageUrl)
-                    .into(binding.ivProfile);
+                    .into(binding.ivProfile)
             }
 
 

@@ -1,4 +1,4 @@
-package com.pocket.kumbhashree.model
+package com.pocket.contacts.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -14,21 +14,26 @@ class ContactModel {
 
 }
 
-class Contact(
-    @SerializedName("id")
-    val id: Int,
+class Contact {
+
     @SerializedName("first_name")
-    val firstName: String? = null,
+    var firstName: String? = ""
+
     @SerializedName("middle_name")
-    val middleName: String? = null,
+    var middleName: String? = ""
+
     @SerializedName("last_name")
-    val lastName: String? = null,
+    var lastName: String? = ""
+
     @SerializedName("address")
-    val address: String? = null,
+    var address: String? = ""
+
     @SerializedName("mobile_no_1")
-    val mobileNo1: String? = null,
+    var mobileNo1: String? = ""
+
     @SerializedName("mobile_no_2")
-    val mobileNo2: String? = null,
+    var mobileNo2: String? = ""
+
     @SerializedName("profile_image")
-    val profileImageUrl: String? = null,
-)
+    var profileImageUrl: String? = ""
+}

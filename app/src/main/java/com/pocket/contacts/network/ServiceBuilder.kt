@@ -1,4 +1,4 @@
-package com.pocket.kumbhashree.network
+package com.pocket.contacts.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -1,13 +1,13 @@
-package com.pocket.kumbhashree.splash
+package com.pocket.contacts.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.pocket.kumbhashree.databinding.ActivitySplashBinding
-import com.pocket.kumbhashree.extensions.startNewActivity
-import com.pocket.kumbhashree.main.MainActivity
+import com.pocket.contacts.databinding.ActivitySplashBinding
+import com.pocket.contacts.extensions.startNewActivity
+import com.pocket.contacts.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding

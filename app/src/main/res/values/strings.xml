@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Kumbhashree Contacts</string>
+    <string name="app_name">Contacts App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hint_enter_first_name">Enter First Name</string>
+    <string name="hint_enter_middle_name">Enter Middle Name</string>
+    <string name="hint_enter_last_name">Enter Last Name</string>
+    <string name="hint_enter_mobile_no_1">Enter Mobile Number 1</string>
+    <string name="hint_enter_mobile_no_2">Enter Mobile Number 2</string>
+    <string name="hint_enter_address">Enter Address</string>
+    <string name="submit">Submit</string>
 </resources>

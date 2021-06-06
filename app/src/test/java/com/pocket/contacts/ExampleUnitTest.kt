@@ -1,4 +1,4 @@
-package com.pocket.kumbhashree
+package com.pocket.contacts
 
 import org.junit.Test
 

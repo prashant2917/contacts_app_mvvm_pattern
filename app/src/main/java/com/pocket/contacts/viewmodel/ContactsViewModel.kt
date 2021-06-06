@@ -1,10 +1,10 @@
-package com.pocket.kumbhashree.viewmodel
+package com.pocket.contacts.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pocket.kumbhashree.model.ContactModel
-import com.pocket.kumbhashree.repository.NetworkRepository
+import com.pocket.contacts.model.ContactModel
+import com.pocket.contacts.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,10 +28,6 @@ class ContactsViewModel : ViewModel() {
 
     fun setIsOffline(isOffline: Boolean) {
         liveDataIsOffline.value = isOffline
-    }
-
-    private fun getIsOffline(): Boolean? {
-        return liveDataIsOffline.value
     }
 
 

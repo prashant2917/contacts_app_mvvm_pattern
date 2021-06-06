@@ -1,4 +1,4 @@
-package com.pocket.kumbhashree.extensions
+package com.pocket.contacts.extensions
 
 import android.app.Activity
 import android.content.Intent

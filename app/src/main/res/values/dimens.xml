@@ -8,8 +8,7 @@
 
 
     <!--text sizes-->
-   <dimen name="text_size_large">34sp</dimen>
-   <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
     <dimen name="text_size_regular">16sp</dimen>
 
     <dimen name="profile_min_width">70dp</dimen>

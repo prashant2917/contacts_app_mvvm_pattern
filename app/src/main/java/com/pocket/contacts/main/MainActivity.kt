@@ -1,8 +1,8 @@
-package com.pocket.kumbhashree.main
+package com.pocket.contacts.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.pocket.kumbhashree.databinding.ActivityMainBinding
+import com.pocket.contacts.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
