@@ -8,14 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.pocket.contacts.R
 import com.pocket.contacts.adapter.ContactsAdapter
 import com.pocket.contacts.databinding.FragmentContactsBinding
+import com.pocket.contacts.interfaces.ItemClickListener
+import com.pocket.contacts.model.Contact
 import com.pocket.contacts.viewmodel.ContactsViewModel
 
 class ContactsFragment : Fragment() {
     private lateinit var binding: FragmentContactsBinding
     private lateinit var contactsViewModel: ContactsViewModel
+    private lateinit var contactsAdapter: ContactsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,18 +47,22 @@ class ContactsFragment : Fragment() {
     }
 
     private val fabClickListener =
-        View.OnClickListener { findNavController().navigate(R.id.go_to_add_contact) }
+        View.OnClickListener {
+            //var bundle = bundleOf(KEY_OBJECT_CONTACT to Contact(), KEY_IS_EDIT to false)
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_OBJECT_CONTACT,Contact())
+            bundle.putBoolean(KEY_IS_EDIT,false)
+            val action = ContactsFragmentDirections.goToAddContact(Contact(),false)
+            findNavController().navigate(action)
+        }
 
     private fun getContacts() {
         contactsViewModel.fetchContacts().observe(this, {
             if (it?.status == "ok" && it.count > 0) {
-                it.contactList.let { contactList ->
-                    if (contactList.isEmpty()) {
-                        binding.recyclerContacts.visibility = View.GONE
-                    } else {
-                        binding.recyclerContacts.adapter = ContactsAdapter(contactList)
-                    }
-                }
+                binding.contactModel = it
+                contactsAdapter = ContactsAdapter(it.contactList, onItemClickListener)
+                binding.recyclerContacts.adapter = contactsAdapter
+
             }
 
         })
@@ -66,6 +72,23 @@ class ContactsFragment : Fragment() {
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         getContacts()
         binding.swipeRefreshLayout.isRefreshing = false
+
+    }
+
+    private val onItemClickListener = object : ItemClickListener {
+        override fun onItemClick(contact: Contact) {
+          //  var bundle = bundleOf(KEY_OBJECT_CONTACT to contact, KEY_IS_EDIT to true)
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_OBJECT_CONTACT,contact)
+            bundle.putBoolean(KEY_IS_EDIT,true)
+            val action = ContactsFragmentDirections.goToAddContact(contact,true)
+            findNavController().navigate(action)
+        }
+    }
+
+    companion object {
+        const val KEY_OBJECT_CONTACT = "contact"
+        const val KEY_IS_EDIT = "is_edit"
 
     }
 }

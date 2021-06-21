@@ -7,9 +7,18 @@
     <fragment
         android:id="@+id/contact_fragment"
         android:name="com.pocket.contacts.contacts.ContactsFragment">
+
         <action
             android:id="@+id/go_to_add_contact"
-            app:destination="@id/add_fragment" />
+            app:destination="@id/add_fragment">
+
+            <argument
+                android:name="contact"
+                app:argType="com.pocket.contacts.model.Contact" />
+            <argument
+                android:name="is_edit"
+                app:argType="boolean" />
+        </action>
     </fragment>
 
     <fragment

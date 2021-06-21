@@ -1,85 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/row_common_padding"
-    tools:context=".contacts.AddContactFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_first_name"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="contact"
+            type="com.pocket.contacts.model.Contact" />
+
+        <variable
+            name="progressVisibility"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_enter_first_name"
-        android:inputType="text"
-        android:padding="@dimen/margin_normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:padding="@dimen/row_common_padding"
+        tools:context=".contacts.AddContactFragment">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_middle_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:hint="@string/hint_enter_middle_name"
-        android:inputType="text"
-        android:padding="@dimen/margin_normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_first_name" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_enter_first_name"
+            android:inputType="text"
+            android:padding="@dimen/margin_normal"
+            android:text="@{contact.firstName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:hint="@string/hint_enter_last_name"
-        android:inputType="text"
-        android:padding="@dimen/margin_normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_middle_name" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:hint="@string/hint_enter_middle_name"
+            android:inputType="text"
+            android:padding="@dimen/margin_normal"
+            android:text="@{contact.middleName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_first_name" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_mobile_one"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:hint="@string/hint_enter_mobile_no_1"
-        android:inputType="number"
-        android:maxLength="10"
-        android:padding="@dimen/margin_normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_last_name" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:hint="@string/hint_enter_last_name"
+            android:inputType="text"
+            android:padding="@dimen/margin_normal"
+            android:text="@{contact.lastName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_middle_name" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_mobile_two"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:hint="@string/hint_enter_mobile_no_2"
-        android:inputType="number"
-        android:maxLength="10"
-        android:padding="@dimen/margin_normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_mobile_one" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_mobile_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:hint="@string/hint_enter_mobile_no_1"
+            android:inputType="number"
+            android:maxLength="10"
+            android:padding="@dimen/margin_normal"
+            android:text="@{contact.mobileNo1}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_last_name" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:hint="@string/hint_enter_address"
-        android:inputType="text"
-        android:padding="@dimen/margin_normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_mobile_two" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_mobile_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:hint="@string/hint_enter_mobile_no_2"
+            android:inputType="number"
+            android:maxLength="10"
+            android:padding="@dimen/margin_normal"
+            android:text="@{contact.mobileNo2}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_mobile_one" />
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:text="@string/submit"
-        app:layout_constraintTop_toBottomOf="@id/et_address" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:hint="@string/hint_enter_address"
+            android:inputType="text"
+            android:padding="@dimen/margin_normal"
+            android:text="@{contact.address}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_mobile_two" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/submit"
+            app:layout_constraintTop_toBottomOf="@id/et_address" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{progressVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,10 +9,23 @@ import com.pocket.contacts.repository.NetworkRepository
 import kotlinx.coroutines.launch
 
 class AddContactViewModel : ViewModel() {
-    private var mutableLiveDataResponseModel = MutableLiveData<ResponseModel?>()
     fun addContact(contact: Contact): MutableLiveData<ResponseModel?> {
+        val mutableLiveDataResponseModel = MutableLiveData<ResponseModel?>()
         viewModelScope.launch {
             val response = NetworkRepository.addContact(contact)
+            if (response.isSuccessful) {
+                response.body().let {
+                    mutableLiveDataResponseModel.value = it
+                }
+            }
+        }
+        return mutableLiveDataResponseModel
+    }
+
+    fun updateContact(contact: Contact): MutableLiveData<ResponseModel?> {
+        val mutableLiveDataResponseModel = MutableLiveData<ResponseModel?>()
+        viewModelScope.launch {
+            val response = NetworkRepository.updateContact(contact)
             if (response.isSuccessful) {
                 response.body().let {
                     mutableLiveDataResponseModel.value = it

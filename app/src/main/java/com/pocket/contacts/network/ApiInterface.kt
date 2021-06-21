@@ -20,4 +20,16 @@ interface ApiInterface {
         @Field("address") address: String?
     ): Response<ResponseModel>
 
+    @FormUrlEncoded
+    @POST("update_user")
+    suspend fun upDateContact(
+        @Field("id") id : Int?,
+        @Field("first_name") firstName: String?,
+        @Field("middle_name") middleName: String?,
+        @Field("last_name") lastName: String?,
+        @Field("mobile_no_1") mobileNoOne: String?,
+        @Field("mobile_no_2") mobileNoTwo: String?,
+        @Field("address") address: String?
+    ): Response<ResponseModel>
+
 }

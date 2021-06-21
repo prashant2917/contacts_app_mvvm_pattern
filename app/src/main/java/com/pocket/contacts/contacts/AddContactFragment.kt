@@ -1,6 +1,5 @@
 package com.pocket.contacts.contacts
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +15,14 @@ import com.pocket.contacts.viewmodel.AddContactViewModel
 class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactsBinding
     private lateinit var addContactViewModel: AddContactViewModel
+    private lateinit var contact: Contact
+    private var isEdit: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentAddContactsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,13 +33,32 @@ class AddContactFragment : Fragment() {
     }
 
     private fun init() {
+        contact = arguments?.getParcelable(ContactsFragment.KEY_OBJECT_CONTACT)!!
+        isEdit = arguments?.getBoolean(ContactsFragment.KEY_IS_EDIT)!!
         addContactViewModel = ViewModelProviders.of(this).get(AddContactViewModel::class.java)
+        binding.progressVisibility =View.GONE
         binding.btnSubmit.setOnClickListener(submitListener)
+        if (isEdit) {
+            binding.contact = contact
+        }
     }
 
     private val submitListener = View.OnClickListener {
-        val contact = Contact()
-        contact.apply {
+        val contact = buildContact()
+
+        if (isEdit) {
+            updateContact(contact)
+        } else {
+            addContact(contact)
+        }
+    }
+
+    private fun buildContact(): Contact {
+        val contactObj = Contact()
+        return contactObj.apply {
+            if (isEdit) {
+                id = contact.id
+            }
             firstName = binding.etFirstName.text.toString()
             middleName = binding.etMiddleName.text.toString()
             lastName = binding.etLastName.text.toString()
@@ -47,18 +66,23 @@ class AddContactFragment : Fragment() {
             mobileNo2 = binding.etMobileTwo.text.toString()
             address = binding.etAddress.text.toString()
         }
-        addContact(contact)
-
     }
 
     private fun addContact(contact: Contact) {
-
+        binding.progressVisibility = View.VISIBLE
         addContactViewModel.addContact(contact).observe(this, { responseModel ->
             showToast(responseModel?.message.toString())
-            if (responseModel?.status == 1) {
-                findNavController().popBackStack()
-            }
+            binding.progressVisibility =View.GONE
+            findNavController().popBackStack()
+        })
+    }
 
+    private fun updateContact(contact: Contact) {
+        binding.progressVisibility =View.VISIBLE
+        addContactViewModel.updateContact(contact).observe(this, { responseModel ->
+            showToast(responseModel?.message.toString())
+            binding.progressVisibility =View.GONE
+            findNavController().popBackStack()
         })
     }
 }
