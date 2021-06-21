@@ -48,7 +48,6 @@ class ContactsFragment : Fragment() {
 
     private val fabClickListener =
         View.OnClickListener {
-            //var bundle = bundleOf(KEY_OBJECT_CONTACT to Contact(), KEY_IS_EDIT to false)
             val bundle = Bundle()
             bundle.putParcelable(KEY_OBJECT_CONTACT,Contact())
             bundle.putBoolean(KEY_IS_EDIT,false)
@@ -57,11 +56,13 @@ class ContactsFragment : Fragment() {
         }
 
     private fun getContacts() {
+        binding.swipeRefreshLayout.isRefreshing =true
         contactsViewModel.fetchContacts().observe(this, {
             if (it?.status == "ok" && it.count > 0) {
                 binding.contactModel = it
                 contactsAdapter = ContactsAdapter(it.contactList, onItemClickListener)
                 binding.recyclerContacts.adapter = contactsAdapter
+                binding.swipeRefreshLayout.isRefreshing = false
 
             }
 
@@ -71,13 +72,12 @@ class ContactsFragment : Fragment() {
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         getContacts()
-        binding.swipeRefreshLayout.isRefreshing = false
+
 
     }
 
     private val onItemClickListener = object : ItemClickListener {
         override fun onItemClick(contact: Contact) {
-          //  var bundle = bundleOf(KEY_OBJECT_CONTACT to contact, KEY_IS_EDIT to true)
             val bundle = Bundle()
             bundle.putParcelable(KEY_OBJECT_CONTACT,contact)
             bundle.putBoolean(KEY_IS_EDIT,true)
