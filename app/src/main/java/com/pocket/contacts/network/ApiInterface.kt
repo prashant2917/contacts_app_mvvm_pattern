@@ -15,8 +15,8 @@ interface ApiInterface {
         @Field("first_name") firstName: String?,
         @Field("middle_name") middleName: String?,
         @Field("last_name") lastName: String?,
-        @Field("mobile_no_1") mobileNoOne: String?,
-        @Field("mobile_no_2") mobileNoTwo: String?,
+        @Field("mobile_no") mobileNo: String?,
+        @Field("email_id") emailId: String?,
         @Field("address") address: String?
     ): Response<ResponseModel>
 
@@ -27,8 +27,8 @@ interface ApiInterface {
         @Field("first_name") firstName: String?,
         @Field("middle_name") middleName: String?,
         @Field("last_name") lastName: String?,
-        @Field("mobile_no_1") mobileNoOne: String?,
-        @Field("mobile_no_2") mobileNoTwo: String?,
+        @Field("mobile_no") mobileNoOne: String?,
+        @Field("email_id") emailId: String?,
         @Field("address") address: String?
     ): Response<ResponseModel>
 

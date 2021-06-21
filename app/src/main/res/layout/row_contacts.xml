@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
-                android:text="@{contact.mobileNo1}"
+                android:text="@{contact.mobileNo}"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size_regular"
                 app:layout_constraintStart_toEndOf="@id/iv_profile"

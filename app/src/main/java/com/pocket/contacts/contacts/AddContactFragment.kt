@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.pocket.contacts.R
 import com.pocket.contacts.databinding.FragmentAddContactsBinding
 import com.pocket.contacts.extensions.showToast
 import com.pocket.contacts.model.Contact
+import com.pocket.contacts.validator.ValidatorFactory
+import com.pocket.contacts.validator.ValidatorType
 import com.pocket.contacts.viewmodel.AddContactViewModel
 
 class AddContactFragment : Fragment() {
@@ -36,7 +39,7 @@ class AddContactFragment : Fragment() {
         contact = arguments?.getParcelable(ContactsFragment.KEY_OBJECT_CONTACT)!!
         isEdit = arguments?.getBoolean(ContactsFragment.KEY_IS_EDIT)!!
         addContactViewModel = ViewModelProviders.of(this).get(AddContactViewModel::class.java)
-        binding.progressVisibility =View.GONE
+        binding.progressVisibility = View.GONE
         binding.btnSubmit.setOnClickListener(submitListener)
         if (isEdit) {
             binding.contact = contact
@@ -44,12 +47,28 @@ class AddContactFragment : Fragment() {
     }
 
     private val submitListener = View.OnClickListener {
-        val contact = buildContact()
+       val validatorName = ValidatorType.ValidatorTypeName()
+        val result = ValidatorFactory.getValidator(validatorName)
+            .validate(binding.etFirstName,getString(R.string.error_enter_valid_first_name)) &&
+                ValidatorFactory.getValidator(validatorName)
+                    .validate(binding.etMiddleName,getString(R.string.error_enter_valid_middle_name)) &&
+                ValidatorFactory.getValidator(validatorName)
+                    .validate(binding.etLastName,getString(R.string.error_enter_valid_last_name)) &&
+                ValidatorFactory.getValidator(ValidatorType.ValidatorTypeMobile())
+                    .validate(binding.etMobileNumber,getString(R.string.error_enter_valid_mobile_number)) &&
+                ValidatorFactory.getValidator(ValidatorType.ValidatorEmail())
+                    .validate(binding.etEmailId,getString(R.string.error_enter_Valid_email_address)) &&
+                ValidatorFactory.getValidator(ValidatorType.ValidatorAddress())
+                    .validate(binding.etAddress,getString(R.string.error_enter_Valid_address))
 
-        if (isEdit) {
-            updateContact(contact)
-        } else {
-            addContact(contact)
+        if(result) {
+            val contact = buildContact()
+
+            if (isEdit) {
+                updateContact(contact)
+            } else {
+                addContact(contact)
+            }
         }
     }
 
@@ -62,8 +81,8 @@ class AddContactFragment : Fragment() {
             firstName = binding.etFirstName.text.toString()
             middleName = binding.etMiddleName.text.toString()
             lastName = binding.etLastName.text.toString()
-            mobileNo1 = binding.etMobileOne.text.toString()
-            mobileNo2 = binding.etMobileTwo.text.toString()
+            mobileNo = binding.etMobileNumber.text.toString()
+            emailId = binding.etEmailId.text.toString()
             address = binding.etAddress.text.toString()
         }
     }
@@ -72,16 +91,16 @@ class AddContactFragment : Fragment() {
         binding.progressVisibility = View.VISIBLE
         addContactViewModel.addContact(contact).observe(this, { responseModel ->
             showToast(responseModel?.message.toString())
-            binding.progressVisibility =View.GONE
+            binding.progressVisibility = View.GONE
             findNavController().popBackStack()
         })
     }
 
     private fun updateContact(contact: Contact) {
-        binding.progressVisibility =View.VISIBLE
+        binding.progressVisibility = View.VISIBLE
         addContactViewModel.updateContact(contact).observe(this, { responseModel ->
             showToast(responseModel?.message.toString())
-            binding.progressVisibility =View.GONE
+            binding.progressVisibility = View.GONE
             findNavController().popBackStack()
         })
     }

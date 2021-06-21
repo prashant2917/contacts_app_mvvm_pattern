@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_enter_first_name"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:padding="@dimen/margin_normal"
             android:text="@{contact.firstName}"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:hint="@string/hint_enter_middle_name"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:padding="@dimen/margin_normal"
             android:text="@{contact.middleName}"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,37 +51,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:hint="@string/hint_enter_last_name"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:padding="@dimen/margin_normal"
             android:text="@{contact.lastName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_middle_name" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_mobile_one"
+            android:id="@+id/et_mobile_Number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
-            android:hint="@string/hint_enter_mobile_no_1"
+            android:hint="@string/hint_enter_mobile_no"
             android:inputType="number"
             android:maxLength="10"
             android:padding="@dimen/margin_normal"
-            android:text="@{contact.mobileNo1}"
+            android:text="@{contact.mobileNo}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_last_name" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_mobile_two"
+            android:id="@+id/et_email_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
-            android:hint="@string/hint_enter_mobile_no_2"
-            android:inputType="number"
-            android:maxLength="10"
+            android:hint="@string/hint_enter_email_id"
+            android:inputType="textEmailAddress"
             android:padding="@dimen/margin_normal"
-            android:text="@{contact.mobileNo2}"
+            android:text="@{contact.emailId}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_mobile_one" />
+            app:layout_constraintTop_toBottomOf="@id/et_mobile_Number" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_address"
@@ -89,11 +88,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:hint="@string/hint_enter_address"
-            android:inputType="text"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="5"
+            android:maxLength="300"
             android:padding="@dimen/margin_normal"
             android:text="@{contact.address}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_mobile_two" />
+            app:layout_constraintTop_toBottomOf="@id/et_email_id" />
 
         <Button
             android:id="@+id/btn_submit"

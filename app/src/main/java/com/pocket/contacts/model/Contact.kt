@@ -33,11 +33,11 @@ class Contact() : Parcelable {
     @SerializedName("address")
     var address: String? = ""
 
-    @SerializedName("mobile_no_1")
-    var mobileNo1: String? = ""
+    @SerializedName("mobile_no")
+    var mobileNo: String? = ""
 
-    @SerializedName("mobile_no_2")
-    var mobileNo2: String? = ""
+    @SerializedName("email_id")
+    var emailId: String? = ""
 
     @SerializedName("profile_image")
     var profileImageUrl: String? = ""
@@ -48,8 +48,8 @@ class Contact() : Parcelable {
         middleName = parcel.readString()
         lastName = parcel.readString()
         address = parcel.readString()
-        mobileNo1 = parcel.readString()
-        mobileNo2 = parcel.readString()
+        mobileNo = parcel.readString()
+        emailId = parcel.readString()
         profileImageUrl = parcel.readString()
     }
 
@@ -59,8 +59,8 @@ class Contact() : Parcelable {
         parcel.writeString(middleName)
         parcel.writeString(lastName)
         parcel.writeString(address)
-        parcel.writeString(mobileNo1)
-        parcel.writeString(mobileNo2)
+        parcel.writeString(mobileNo)
+        parcel.writeString(emailId)
         parcel.writeString(profileImageUrl)
     }
 

@@ -17,8 +17,8 @@ object NetworkRepository {
             contact.firstName,
             contact.middleName,
             contact.lastName,
-            contact.mobileNo1,
-            contact.mobileNo2,
+            contact.mobileNo,
+            contact.emailId,
             contact.address
         )
     }
@@ -29,8 +29,8 @@ object NetworkRepository {
             contact.firstName,
             contact.middleName,
             contact.lastName,
-            contact.mobileNo1,
-            contact.mobileNo2,
+            contact.mobileNo,
+            contact.emailId,
             contact.address
         )
     }
