@@ -40,7 +40,6 @@ class ContactsFragment : Fragment() {
 
     private fun init() {
         contactsViewModel = ViewModelProviders.of(this).get(ContactsViewModel::class.java)
-        contactsViewModel.setIsOffline(false)
         binding.swipeRefreshLayout.setOnRefreshListener(refreshListener)
         binding.fabAdd.setOnClickListener(fabClickListener)
     }
