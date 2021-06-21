@@ -24,7 +24,6 @@ class ContactsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentContactsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,39 +48,33 @@ class ContactsFragment : Fragment() {
     private val fabClickListener =
         View.OnClickListener {
             val bundle = Bundle()
-            bundle.putParcelable(KEY_OBJECT_CONTACT,Contact())
-            bundle.putBoolean(KEY_IS_EDIT,false)
-            val action = ContactsFragmentDirections.goToAddContact(Contact(),false)
+            bundle.putParcelable(KEY_OBJECT_CONTACT, Contact())
+            bundle.putBoolean(KEY_IS_EDIT, false)
+            val action = ContactsFragmentDirections.goToAddContact(Contact(), false)
             findNavController().navigate(action)
         }
 
     private fun getContacts() {
-        binding.swipeRefreshLayout.isRefreshing =true
+        binding.swipeRefreshLayout.isRefreshing = true
         contactsViewModel.fetchContacts().observe(this, {
             if (it?.status == "ok" && it.count > 0) {
                 binding.contactModel = it
                 contactsAdapter = ContactsAdapter(it.contactList, onItemClickListener)
                 binding.recyclerContacts.adapter = contactsAdapter
                 binding.swipeRefreshLayout.isRefreshing = false
-
             }
-
         })
-
     }
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         getContacts()
-
-
     }
-
     private val onItemClickListener = object : ItemClickListener {
         override fun onItemClick(contact: Contact) {
             val bundle = Bundle()
-            bundle.putParcelable(KEY_OBJECT_CONTACT,contact)
-            bundle.putBoolean(KEY_IS_EDIT,true)
-            val action = ContactsFragmentDirections.goToAddContact(contact,true)
+            bundle.putParcelable(KEY_OBJECT_CONTACT, contact)
+            bundle.putBoolean(KEY_IS_EDIT, true)
+            val action = ContactsFragmentDirections.goToAddContact(contact, true)
             findNavController().navigate(action)
         }
     }
@@ -89,7 +82,6 @@ class ContactsFragment : Fragment() {
     companion object {
         const val KEY_OBJECT_CONTACT = "contact"
         const val KEY_IS_EDIT = "is_edit"
-
     }
 }
 
