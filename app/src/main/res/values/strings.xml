@@ -8,6 +8,7 @@
     <string name="hint_enter_email_id">Enter Email id</string>
     <string name="hint_enter_address">Enter Address</string>
     <string name="submit">Submit</string>
+    <string name="edit_image">Edit Image</string>
 
     <!--error message-->
     <string name="error_enter_valid_first_name">Enter Valid First Name</string>

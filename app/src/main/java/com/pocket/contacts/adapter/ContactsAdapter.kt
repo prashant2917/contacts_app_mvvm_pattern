@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.pocket.contacts.R
 import com.pocket.contacts.databinding.RowContactsBinding
 import com.pocket.contacts.interfaces.ItemClickListener
 import com.pocket.contacts.model.Contact
@@ -23,10 +24,10 @@ class ContactsAdapter(
         holder.binding.contact = contactList[position]
         PROFILE_PIC_URL + contactList[position].profileImageUrl
         val imageUrl = contactList[position].profileImageUrl.toString()
-        if (imageUrl.isNotEmpty()) {
-            Glide.with(holder.binding.root.context).load(PROFILE_PIC_URL + imageUrl)
+
+            Glide.with(holder.binding.root.context).load(PROFILE_PIC_URL + imageUrl).placeholder(R.drawable.ic_dummy_profile_pic).error(R.drawable.ic_dummy_profile_pic)
                 .into(holder.binding.ivProfile)
-        }
+
         holder.binding.root.setOnClickListener {
             onItemClickListener.onItemClick(contactList[position])
         }
