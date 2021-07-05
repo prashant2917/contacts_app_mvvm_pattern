@@ -6,17 +6,19 @@ import androidx.lifecycle.viewModelScope
 import com.pocket.contacts.model.ContactModel
 import com.pocket.contacts.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ContactsViewModel : ViewModel() {
     private var mutableLiveDataContactsModel = MutableLiveData<ContactModel?>()
-    private val liveDataIsOffline = MutableLiveData<Boolean>()
+
     fun fetchContacts(): MutableLiveData<ContactModel?> {
         viewModelScope.launch(Dispatchers.Main) {
-            val response = NetworkRepository.fetchContacts()
-            if (response.isSuccessful) {
-                response.body().let {
-                    mutableLiveDataContactsModel.value = it
+            NetworkRepository.fetchContacts().collect { response ->
+                if (response.isSuccessful) {
+                    response.body().let {
+                        mutableLiveDataContactsModel.value = it
+                    }
                 }
             }
         }
