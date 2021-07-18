@@ -24,6 +24,11 @@ class ContactsViewModelTest {
         val responseModel = getResponseModel()
         assertTrue(responseModel.status == 1)
     }
+    @Test
+    fun addContactFailure() {
+        val responseModel = ResponseModel()
+        assertTrue(responseModel.status == -1)
+    }
 
     private fun getContactModel(): ContactModel {
         var contactModel = ContactModel()
