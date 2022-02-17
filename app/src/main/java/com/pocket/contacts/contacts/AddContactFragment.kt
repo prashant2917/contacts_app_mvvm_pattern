@@ -1,6 +1,7 @@
 package com.pocket.contacts.contacts
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,10 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.pocket.contacts.ContactApplication
 import com.pocket.contacts.R
 import com.pocket.contacts.adapter.ContactsAdapter
 import com.pocket.contacts.databinding.FragmentAddContactsBinding
@@ -23,14 +24,22 @@ import com.pocket.contacts.viewmodel.AddContactViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactsBinding
-    private lateinit var addContactViewModel: AddContactViewModel
+    @Inject
+    lateinit var addContactViewModel: AddContactViewModel
     private lateinit var contact: Contact
     private var isEdit: Boolean = false
     private var imageUrl: String = ""
     private var imageBase64: String = ""
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val application = activity?.application as ContactApplication
+        application.component.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +58,6 @@ class AddContactFragment : Fragment() {
     private fun init() {
         contact = arguments?.getParcelable(ContactsFragment.KEY_OBJECT_CONTACT)!!
         isEdit = arguments?.getBoolean(ContactsFragment.KEY_IS_EDIT)!!
-        addContactViewModel = ViewModelProviders.of(this).get(AddContactViewModel::class.java)
         binding.progressVisibility = View.GONE
         binding.btnSubmit.setOnClickListener(submitListener)
         binding.ivEdit.setOnClickListener(editClickListener)
