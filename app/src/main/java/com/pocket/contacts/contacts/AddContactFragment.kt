@@ -144,23 +144,23 @@ class AddContactFragment : Fragment() {
     private fun addContact(contact: Contact) {
         binding.progressVisibility = View.VISIBLE
         activity?.disableUserInteraction()
-        addContactViewModel.addContact(contact).observe(this, { responseModel ->
+        addContactViewModel.addContact(contact).observe(this) { responseModel ->
             showToast(responseModel?.message.toString())
             binding.progressVisibility = View.GONE
             activity?.enableUserInteraction()
             findNavController().popBackStack()
-        })
+        }
     }
 
     private fun updateContact(contact: Contact) {
         binding.progressVisibility = View.VISIBLE
         activity?.disableUserInteraction()
-        addContactViewModel.updateContact(contact).observe(this, { responseModel ->
+        addContactViewModel.updateContact(contact).observe(this) { responseModel ->
             showToast(responseModel?.message.toString())
             binding.progressVisibility = View.GONE
             activity?.enableUserInteraction()
             findNavController().popBackStack()
-        })
+        }
     }
 
     private val startForProfileImageResult =
