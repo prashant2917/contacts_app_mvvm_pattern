@@ -2,16 +2,19 @@ package com.pocket.contacts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pocket.contacts.R
 import com.pocket.contacts.databinding.RowContactsBinding
 import com.pocket.contacts.interfaces.ItemClickListener
 import com.pocket.contacts.model.Contact
+import javax.inject.Inject
 
-class ContactsAdapter(
+class ContactsAdapter @Inject constructor(
     private var contactList: List<Contact>,
-    private var onItemClickListener: ItemClickListener
+    private var onItemClickListener: ItemClickListener,
+    private var fragment: Fragment
 ) :
     RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
@@ -25,11 +28,12 @@ class ContactsAdapter(
         PROFILE_PIC_URL + contactList[position].profileImageUrl
         val imageUrl = contactList[position].profileImageUrl.toString()
 
-            Glide.with(holder.binding.root.context).load(PROFILE_PIC_URL + imageUrl).placeholder(R.drawable.ic_dummy_profile_pic).error(R.drawable.ic_dummy_profile_pic)
-                .into(holder.binding.ivProfile)
+        Glide.with(holder.binding.root.context).load(PROFILE_PIC_URL + imageUrl)
+            .placeholder(R.drawable.ic_dummy_profile_pic).error(R.drawable.ic_dummy_profile_pic)
+            .into(holder.binding.ivProfile)
 
         holder.binding.root.setOnClickListener {
-            onItemClickListener.onItemClick(contactList[position])
+            onItemClickListener.onItemClick(contactList[position], fragment)
         }
     }
 

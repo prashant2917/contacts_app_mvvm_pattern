@@ -5,7 +5,7 @@ import com.pocket.contacts.contacts.ContactsFragment
 import com.pocket.contacts.main.MainActivity
 import dagger.Component
 
-@Component(modules = [NetworkModule::class])
+@Component(modules = [NetworkModule::class, UiModule::class])
 interface ApplicationComponent {
     fun inject(loginActivity: MainActivity)
     fun inject(fragment: ContactsFragment)

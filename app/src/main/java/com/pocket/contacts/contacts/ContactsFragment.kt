@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.pocket.contacts.ContactApplication
@@ -19,7 +18,10 @@ import javax.inject.Inject
 
 class ContactsFragment : Fragment() {
     private lateinit var binding: FragmentContactsBinding
-    @Inject lateinit var contactsViewModel: ContactsViewModel
+    @Inject
+    lateinit var contactsViewModel: ContactsViewModel
+    @Inject
+    lateinit var itemClickListener: ItemClickListener
     private lateinit var contactsAdapter: ContactsAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +67,7 @@ class ContactsFragment : Fragment() {
         contactsViewModel.fetchContacts().observe(this) {
             if (it?.status == "ok" && it.count > 0) {
                 binding.contactModel = it
-                contactsAdapter = ContactsAdapter(it.contactList, onItemClickListener)
+                contactsAdapter = ContactsAdapter(it.contactList, itemClickListener, this)
                 binding.recyclerContacts.adapter = contactsAdapter
                 binding.swipeRefreshLayout.isRefreshing = false
             }
@@ -74,15 +76,6 @@ class ContactsFragment : Fragment() {
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         getContacts()
-    }
-    private val onItemClickListener = object : ItemClickListener {
-        override fun onItemClick(contact: Contact) {
-            val bundle = Bundle()
-            bundle.putParcelable(KEY_OBJECT_CONTACT, contact)
-            bundle.putBoolean(KEY_IS_EDIT, true)
-            val action = ContactsFragmentDirections.goToAddContact(contact, true)
-            findNavController().navigate(action)
-        }
     }
 
     companion object {
